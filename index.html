@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moonshot - Plataforma Bitcoin P2P</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <div class="bull-logo">🐂</div>
+                <div class="logo">MOONSHOT</div>
+            </div>
+            <nav>
+                <button class="nav-btn active" data-target="prestamo">Préstamo Bitcoin</button>
+                <button class="nav-btn" data-target="p2p">Transacción P2P</button>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <div class="container">
+          
+            <section id="prestamo" class="section active">
+                <h2>Solicitar Préstamo Bitcoin</h2>
+                
+                
+                <div id="paso-verificacion" class="verificacion-container">
+                    <h3>🔐 Verificación de Seguridad</h3>
+                    <p class="verificacion-descripcion">Para prevenir estafas, verificaremos tu correo electrónico antes de procesar tu solicitud.</p>
+                    
+                    <div class="form-group">
+                        <label for="email-verificacion">Correo Electrónico</label>
+                        <input type="email" id="email-verificacion" placeholder="tu@correo.com" required>
+                        <div class="error" id="error-email-verificacion"></div>
+                    </div>
+                    
+                    <button type="button" id="btn-enviar-codigo" class="btn btn-verificacion">
+                        Enviar Código de Verificación
+                    </button>
+                    
+                    <div class="codigo-container" id="codigo-container">
+                        <div class="form-group">
+                            <label for="codigo-verificacion">Código de Verificación (6 dígitos)</label>
+                            <input type="text" id="codigo-verificacion" maxlength="6" placeholder="123456" required>
+                            <div class="codigo-ayuda">Revisa tu bandeja de entrada y spam</div>
+                            <div class="error" id="error-codigo-verificacion"></div>
+                        </div>
+                        
+                        <div class="contador-tiempo" id="contador-tiempo">
+                            El código expira en: <span id="tiempo-restante">05:00</span>
+                        </div>
+                        
+                        <button type="button" id="btn-verificar-codigo" class="btn btn-verificacion">
+                            Verificar Código
+                        </button>
+                        
+                        <button type="button" id="btn-reenviar-codigo" class="btn btn-secundario">
+                            Reenviar Código
+                        </button>
+                    </div>
+                </div>
+
+                
+                <form id="prestamo-form">
+                    <div class="verificacion-exitosa">
+                        <div class="verificacion-check">✅</div>
+                        <p>Correo verificado correctamente</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email-prestamo">Correo Electrónico Verificado</label>
+                        <input type="email" id="email-prestamo" readonly class="campo-verificado">
+                        <div class="campo-verificado-info">Este correo ha sido verificado</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="public-key-prestamo">Llave Pública de tu Wallet</label>
+                        <input type="text" id="public-key-prestamo" placeholder="bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh" required>
+                        <div class="error" id="error-public-key-prestamo"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cantidad-prestamo">Cantidad de Bitcoin</label>
+                        <input type="text" id="cantidad-prestamo" placeholder="Ej: 0.05 BTC" required>
+                        <div class="error" id="error-cantidad-prestamo"></div>
+                    </div>
+                    
+                    <button type="submit" class="btn" id="btn-enviar-prestamo">
+                        Solicitar Préstamo
+                    </button>
+                </form>
+                <div class="verificacion-exitosa" id="verificacion-exitosa" style="display: none;">
+    <div class="verificacion-check">✅</div>
+    <p>Correo verificado correctamente</p>
+</div>
+                <div class="success-message" id="success-prestamo">
+                    ¡Solicitud enviada correctamente! Te contactaremos pronto a tu correo electrónico.
+                </div>
+            </section>
+            
+           
+            <section id="p2p" class="section">
+                <h2>Transacción P2P</h2>
+                <form id="p2p-form">
+                    <div class="form-group">
+                        <label for="public-key-destino">Llave Pública del Destinatario</label>
+                        <input type="text" id="public-key-destino" placeholder="Llave pública del destinatario" required>
+                        <div class="error" id="error-public-key-destino"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cantidad-satoshis">Cantidad de Satoshis</label>
+                        <input type="text" id="cantidad-satoshis" placeholder="Ej: 50000 sats" required>
+                        <div class="error" id="error-cantidad-satoshis"></div>
+                    </div>
+                    
+                    <button type="submit" class="btn">Enviar Solicitud</button>
+                </form>
+                
+                <div class="success-message" id="success-p2p">
+                    ¡Solicitud enviada correctamente! Ahora realiza el depósito a nuestra llave pública.
+                </div>
+                
+                <div class="public-key-container" id="public-key-container">
+                    <h3>Nuestra Llave Pública para el Depósito</h3>
+                    <p class="public-key" id="nuestra-public-key">c8d7c0d16fc8490ba9f9e46773a2091a</p>
+                    <button class="copy-btn" id="copy-public-key">Copiar Llave</button>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>Moonshot &copy; 2023 - Plataforma Bitcoin P2P Segura</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
